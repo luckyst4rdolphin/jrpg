@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://duf71mg2pvjbl"]
+
+[ext_resource type="Script" uid="uid://bxktvnt7f3hna" path="res://game_over.gd" id="1_agage"]
+[ext_resource type="FontFile" uid="uid://b8j2idrwr0jus" path="res://assets/Play-Regular.ttf" id="1_y26ei"]
+
+[node name="Node2D" type="Node2D" unique_id=204311721]
+script = ExtResource("1_agage")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=951622859]
+offset_right = 80.0
+offset_bottom = 80.0
+color = Color(0, 0, 0, 0.784314)
+
+[node name="gameover_text" type="RichTextLabel" parent="." unique_id=185331336]
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 682.0
+offset_bottom = 286.0
+theme_override_fonts/normal_font = ExtResource("1_y26ei")
+theme_override_font_sizes/normal_font_size = 140
