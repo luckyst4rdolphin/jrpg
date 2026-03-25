@@ -22,7 +22,7 @@ func _ready() -> void:
 	entity.def = 10
 	entity.prio_action = 1
 	
-	healthbar.global_position = entity.sprite.global_position + Vector2(-30, 40)
+	healthbar.global_position = entity.sprite.global_position + Vector2(-30, -90)
 	healthbar.max_value = entity.max_hp
 	healthbar.value = entity.hp
 	hp_label.text = "%s/%s" % [entity.hp, entity.max_hp]
@@ -44,11 +44,11 @@ func _ready() -> void:
 	actions.push_back(block_action)
 	
 	var special_action = Action.new()
-	special_action.name = "Healing Light"
+	special_action.name = "Healing Staff"
 	special_action.target = 3
 	special_action.charge_cost = 6
 	special_action.charge_gain = 0
-	special_action.description = "Heals the party."
+	special_action.description = "Heals every member of the party."
 	actions.push_back(special_action)
 	
 	entity.do_idle()

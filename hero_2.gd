@@ -21,7 +21,7 @@ func _ready() -> void:
 	entity.def = 5
 	entity.prio_action = 1
 	
-	healthbar.global_position = entity.sprite.global_position + Vector2(-30, 40)
+	healthbar.global_position = entity.sprite.global_position + Vector2(-70, -90)
 	healthbar.max_value = entity.max_hp
 	healthbar.value = entity.hp
 	hp_label.text = "%s/%s" % [entity.hp, entity.max_hp]
@@ -44,7 +44,7 @@ func _ready() -> void:
 	actions.push_back(block_action)
 	
 	var special_action = Action.new()
-	special_action.name = "Sucker Punch"
+	special_action.name = "Super Punch"
 	special_action.target = 1
 	special_action.charge_cost = 2
 	special_action.charge_gain = 0

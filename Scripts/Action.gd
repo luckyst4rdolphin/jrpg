@@ -38,7 +38,7 @@ func calculate_prio(characters: Node2D, doer: Entity, entity_prio: int, can_cast
 				prio += 1
 	
 	elif target == 3 or target == 4:
-		if name == "Healing Light":
+		if name == "Healing Staff":
 			for character in characters.get_children():
 				if character.entity.hp < ceil(character.entity.max_hp/2):
 					prio += 3
