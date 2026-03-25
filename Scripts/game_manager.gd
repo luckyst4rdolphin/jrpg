@@ -57,6 +57,16 @@ func _ready() -> void:
 			enemies += 1
 	
 
+func hide_battle_buttons():
+	for btn in action_btns.get_children():
+		btn.visible = false
+		btn.button_pressed = false
+	
+	for btn in select_btns.get_children():
+		btn.visible = false
+		btn.button_pressed = false
+
+
 func _process(delta: float) -> void:
 	if prev_state != state:
 		print(debug_state[state])
@@ -75,6 +85,8 @@ func _process(delta: float) -> void:
 		
 		load_ui(turn_queue[qi])
 		turn_queue[qi].entity.do_idle()
+		if turn_queue[qi].entity.side == 1 or AUTO_BATTLER:
+			hide_battle_buttons()
 		
 		# if enemy, use action prio system
 		if turn_queue[qi].entity.side == 1 or AUTO_BATTLER:
@@ -106,7 +118,13 @@ func _process(delta: float) -> void:
 			compute_distance()
 			state = 1
 			
-			game_event.text = str(turn_queue[qi].entity.name, ' used ', selected_action.name, ' on ', turn_queue[ri].entity.name)
+			if ri == -1:
+				if selected_action.target == 3:
+					game_event.text = str(turn_queue[qi].entity.name, " used ", selected_action.name, " on All Allies")
+				elif selected_action.target == 4:
+					game_event.text = str(turn_queue[qi].entity.name, " used ", selected_action.name, " on All Enemies")
+			else:
+				game_event.text = str(turn_queue[qi].entity.name, " used ", selected_action.name, " on ", turn_queue[ri].entity.name)
 
 	elif state == 1:
 		var dx = abs(turn_queue[qi].entity.sprite.position.x - target_position.x)
@@ -130,7 +148,7 @@ func _process(delta: float) -> void:
 			turn_queue[qi].entity.sprite.position = orig_position
 			if not turn_queue[qi].entity.is_blocking:
 				turn_queue[qi].entity.do_idle()
-			if qi != ri and not turn_queue[ri].entity.is_stunned:
+			if ri != -1 and qi != ri and not turn_queue[ri].entity.is_stunned:
 				turn_queue[ri].entity.do_idle()
 			qi = (qi + 1) % len(turn_queue)
 			
@@ -281,12 +299,14 @@ func apply_action():
 		turn_queue[ri].entity.get_stunned()
 		
 	elif selected_action.name == "Healing Staff":
+		game_event.text = str(turn_queue[qi].entity.name, " used Healing Staff on All Allies")
 		turn_queue[qi].entity.do_special()
 		for x in characters.get_children():
 			if x.entity.side == 0 and x.entity.alive:
 				x.entity.get_healed()
 	
 	elif selected_action.name == "Flame Breath":
+		game_event.text = str(turn_queue[qi].entity.name, " used Flame Breath on All Enemies")
 		turn_queue[qi].entity.do_special()
 		for x in characters.get_children():
 			if x.entity.side == 0 and x.entity.alive:
