@@ -8,7 +8,7 @@ var actions: Array
 
 func _ready() -> void:
 	# Info
-	entity.name = "Dragon"
+	entity.name = "Fire Fiend"
 	entity.sprite = $AnimSprite
 	entity.side = 1
 	
@@ -22,16 +22,16 @@ func _ready() -> void:
 	entity.def = 9
 	entity.prio_action = 0
 	
-	healthbar.global_position = entity.sprite.global_position + Vector2(-30, 40)
+	healthbar.global_position = entity.sprite.global_position + Vector2(-30, -40)
 	healthbar.max_value = entity.max_hp
 	healthbar.value = entity.hp
 	hp_label.text = "%s/%s" % [entity.hp, entity.max_hp]
 	
 	# Actions
 	var atk_action = Action.new()
-	atk_action.name = "Bite"
+	atk_action.name = "Claws"
 	atk_action.target = 0
-	atk_action.description = "Bites an enemy"
+	atk_action.description = "Claws an enemy"
 	actions.push_back(atk_action)
 	
 	var block_action = Action.new()
